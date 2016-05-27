@@ -15,8 +15,10 @@
       Contacts
     </x-header>
     <search placeholder="Search for groups or contacts"></search>
-    <group-panel v-for="group in groups" :header="group.name">
-      <cell-list :list="group.members"></cell-list>
+    <group-panel v-for="group in groups" :header="group.name" :members="group.members"  :is-edit="isEdit">
+    <span slot="edit" class="clickable" @click="deleteGroup(group)" v-show="isEdit">
+      <icon class="inline-fa-icon" name="minus-circle"></icon>
+    </span>
     </group-panel>
   </div>
 </template>
@@ -27,14 +29,12 @@ import XHeader from 'vux/components/x-header'
 import Search from 'vux/components/search'
 // import { panel as Panel } from 'vue-strap'
 import GroupPanel from '../mypanel/GroupPanel'
-import CellList from '../mylist/CellList'
 import Add from './Add'
 export default {
   components: {
     Icon,
     Search,
     GroupPanel,
-    CellList,
     XHeader,
     Add
   },
@@ -44,6 +44,9 @@ export default {
     },
     toggleEdit () {
       this.isEdit = !this.isEdit
+    },
+    deleteGroup (group) {
+      this.groups.$remove(group)
     }
   },
   data () {
@@ -59,20 +62,25 @@ export default {
       isAdd: false,
       groups: [
         {
+          id: '1',
           name: 'default',
           members: [
             {
+              id: '1',
               name: 'Sinker'
             },
             {
+              id: '2',
               name: 'Sinkerine'
             }
           ]
         },
         {
+          id: '2',
           name: 'zju',
           members: [
             {
+              id: '3',
               name: 'Narcissu'
             }
           ]

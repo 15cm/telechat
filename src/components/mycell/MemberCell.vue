@@ -1,6 +1,7 @@
 <template>
   <div class="member-cell">
-    <cell :title="member.name"></cell>
+      <slot name="edit"></slot>
+      <cell :title="member.name" class="unselectable clickable"></cell>
   </div>
 </template>
 
@@ -21,5 +22,4 @@ export default {
 </script>
 
 <style>
-@import '~vux/vux.css';
 </style>

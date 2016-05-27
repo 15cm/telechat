@@ -1,1 +1,5 @@
 configRouter	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/route-config.js	/^export function configRouter (router) {$/;"	function	line:1
+.clickable	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src/assets/css/basic.css	/^.clickable {$/;"	function	line:1
+a:hover	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src/assets/css/basic.css	/^a:hover {$/;"	function	line:5
+a:focus	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src/assets/css/basic.css	/^a:focus {$/;"	function	line:9
+.weui_cell	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src/assets/css/basic.css	/^.weui_cell {$/;"	function	line:13

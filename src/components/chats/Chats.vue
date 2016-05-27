@@ -6,7 +6,7 @@
         <span slot="right"><a class="clickable" @click="toggleEdit">Edit</a></span>
       </x-header>
       <search placeholder="Search for users"></search>
-      <cell-list type="2" :list="chatList"></cell-list>
+      <cell-list type="2" :items="chats" :is-edit="isEdit"></cell-list>
     </div>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
       },
       isEdit: false,
       isChatting: false,
-      chatList: [
+      chats: [
         {
           user: 'Tom',
           lastMessage: 'Hello',

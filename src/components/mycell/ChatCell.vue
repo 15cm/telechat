@@ -1,6 +1,7 @@
 <template>
   <div class="chat-cell">
-    <cell :title="chat.user"></cell>
+    <slot name="edit"></slot>
+    <cell :title="chat.user" class="unselectable"></cell>
   </div>
 </template>
 

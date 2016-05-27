@@ -1,19 +1,18 @@
 <template>
   <div id="group-panel">
-    <a class="clickable unselectable" @click="toggleIsOpen">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <span>
-          <icon name="caret-right" scale="0.8" v-show="!isOpen"></icon>
-          <icon name="caret-down" scale="0.8" v-show="isOpen"></icon>
-          </span>
-          {{ header }}
-        </h4>
-      </div>
-    </a>
+    <slot name="edit"></slot>
+    <div class="clickable unselectable panel-inline" v-bind:class="{'panel-inline-edit': isEdit}" @click="toggleIsOpen">
+          <icon class="inline-fa-icon" :name="isOpen ? 'caret-down' : 'caret-right'" scale="0.8" > </icon>
+            <div class="panel-heading panel-inline">
+              <h4 class="panel-title">
+                {{ header }}
+              </h4>
+            </div>
+    </div>
     <div class="panel-collapse" v-show="isOpen" transition="collapse">
       <div class="panel-body">
-        <slot></slot>
+        <cell-list :items="members" :is-edit="isEdit">
+        </cell-list>
       </div>
     </div>
   </div>
@@ -21,17 +20,20 @@
 
 <script>
 import Icon from 'vue-awesome/dist/vue-awesome'
-// require('src/assets/basic.css')
+import CellList from '../mylist/CellList'
 export default {
   components: {
-    Icon
+    Icon,
+    CellList
   },
   props: {
     isOpen: {
       type: Boolean,
       default: false
     },
-    header: String
+    header: String,
+    members: Array,
+    isEdit: Boolean
   },
   methods: {
     toggleIsOpen () {
@@ -55,6 +57,17 @@ export default {
 </script>
 
 <style scope>
+.inline-fa-icon {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.panel-inline {
+  margin-left: 5px;
+  display: inline-block;
+  width: calc(100% - 33px);
+  /*overflow: hidden;*/
+}
 
 .collapse-transition {
   transition: max-height .5s ease;
