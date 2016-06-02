@@ -1,15 +1,16 @@
 <template>
   <div class="cell-list">
     <member-cell v-for="item in items" :member="item" :is-edit="isEdit" v-if="type == '1'">
-        <span slot="edit" class="clickable" @click="deleteItem(item)" v-show="isEdit">
-          <icon class="inline-fa-icon" name="minus-circle"></icon>
-        </span>
+        <div slot="edit" class="icon_before_cell button_like" @click="deleteItem(item)" v-show="isEdit">
+          <icon name="minus-circle"></icon>
+        </div>
     </member-cell>
     <chat-cell v-for="item in items" :chat="item" v-if="type == '2'">
-        <span slot="edit" class="clickable" @click="deleteItem(item)" v-show="isEdit">
-          <icon class="inline-fa-icon" name="minus-circle"></icon>
+        <span slot="edit" class="icon_before_cell button_like" @click="deleteItem(item)" v-show="isEdit">
+          <icon name="minus-circle"></icon>
         </span>
     </chat-cell>
+    <!-- <group-cell class="clickable unselectable" v-for="item in items" :title="item.name" @click="onGroupSelect(item)" v-if="type == '3'"></group-cell> -->
   </div>
 </template>
 
@@ -34,6 +35,13 @@ export default {
   methods: {
     deleteItem (item) {
       this.items.$remove(item)
+    }
+  },
+  events: {
+    'on-move-member': function (item) {
+      console.log('In cell list:')
+      console.log(item)
+      return true
     }
   },
   data () {

@@ -16,6 +16,7 @@
     "vue": "^1.0.21",
     "vue-awesome": "^0.3.0",
     "vue-router": "^0.7.13",
+    "vue-scrollbar": "^1.0.4",
     "vue-strap": "^1.0.11",
     "vux": "0.0.118-rc1"
   },

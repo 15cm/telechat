@@ -1,17 +1,25 @@
 <template>
-  <div id="group-panel">
+  <div class="group-panel">
     <slot name="edit"></slot>
-    <div class="clickable unselectable panel-inline" v-bind:class="{'panel-inline-edit': isEdit}" @click="toggleIsOpen">
-          <icon class="inline-fa-icon" :name="isOpen ? 'caret-down' : 'caret-right'" scale="0.8" > </icon>
-            <div class="panel-heading panel-inline">
-              <h4 class="panel-title">
-                {{ header }}
-              </h4>
-            </div>
+    <div class="panel_box button_like" v-bind:class="{'edit': isEdit}" @click="toggleIsOpen">
+      <div class="panel_hd">
+        <icon :name="isOpen ? 'caret-down' : 'caret-right'" scale="0.8" > </icon>
+      </div>
+        <div class="panel_bd">
+          <h4>{{ group.name }}</h4>
+        </div>
     </div>
-    <div class="panel-collapse" v-show="isOpen" transition="collapse">
+    <!-- <div v-else class="panel_box button_like" v-bind:class="{'edit': isEdit}" @dblclick="toggleIsOpen">
+      <div class="panel_hd">
+        <icon :name="isOpen ? 'caret-down' : 'caret-right'" scale="0.8" > </icon>
+      </div>
+        <div class="panel_bd">
+          <h4>{{ group.name }}</h4>
+        </div>
+    </div> -->
+    <div class="panel-collapse" v-el:group-panel v-show="isOpen" transition="collapse">
       <div class="panel-body">
-        <cell-list :items="members" :is-edit="isEdit">
+        <cell-list :items="group.members" :is-edit="isEdit">
         </cell-list>
       </div>
     </div>
@@ -27,18 +35,31 @@ export default {
     CellList
   },
   props: {
+    mobile: {
+      type: Boolean,
+      default: false
+    },
     isOpen: {
       type: Boolean,
       default: false
     },
-    header: String,
-    members: Array,
+    group: Object,
     isEdit: Boolean
+  },
+  ready () {
+    console.log('ready')
+    // this.$el.style.maxHeight = this.$el.offsetHeight + 'px'
   },
   methods: {
     toggleIsOpen () {
       this.isOpen = !this.isOpen
       this.$dispatch('group-panel-open', this)
+      console.log('Is open: ' + this.isOpen)
+    }
+  },
+  events: {
+    'on-move-member': function (member) {
+      this.$dispatch('on-move-member-group', member, this.group)
     }
   },
   transitions: {
@@ -57,24 +78,16 @@ export default {
 </script>
 
 <style scope>
-.inline-fa-icon {
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.panel-inline {
-  margin-left: 5px;
-  display: inline-block;
-  width: calc(100% - 33px);
-  /*overflow: hidden;*/
-}
-
+/*.group-panel {
+  margin-top: 90px;
+  margin-bottom: 90px;
+}*/
 .collapse-transition {
   transition: max-height .5s ease;
   overflow: hidden;
 }
 
 .collapse-enter, .collapse-leave {
-  max-height: 0!important;
+  max-height: 0px !important;
 }
 </style>

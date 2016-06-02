@@ -1,15 +1,22 @@
 <template>
-  <div class="chat-cell">
+  <div class="cell_box">
     <slot name="edit"></slot>
-    <cell :title="chat.user" class="unselectable"></cell>
+    <div class="cell_box button_like"
+      v-link="{ name: 'chatting', params: { id: chat.contact.id }}">
+      <div class="cell_hd">
+        <img class="avatar" :src="chat.contact.avatar">
+      </div>
+      <div class="cell_bd">
+        <h4 class="cell_title">{{ chat.contact.name }}</h4>
+        <p class="cell_title_desc">{{ chat.lastMsg }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Cell from 'vux/components/cell'
 export default {
   components: {
-    Cell
   },
   props: {
     chat: Object
@@ -20,3 +27,6 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+</style>
