@@ -53,8 +53,7 @@ export default {
   methods: {
     toggleIsOpen () {
       this.isOpen = !this.isOpen
-      this.$dispatch('group-panel-open', this)
-      console.log('Is open: ' + this.isOpen)
+      // this.$dispatch('group-panel-open', this)
     }
   },
   events: {

@@ -2,9 +2,9 @@
   <div class="add-contact">
     <pop-up :show.sync="isShow" height="100%">
       <x-header :left-options="leftOptions">
-        <a class="clickable" @click="cancel" slot="left">Cancel</a>
+        <a class="button_like" @click="cancel" slot="left">Cancel</a>
         New Contact
-        <a class="clickable" @click="done" slot="right">Done</a>
+        <a class="button_like" @click="done" slot="right">Done</a>
       </x-header>
     </pop-up>
   </div>

@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="contacts" >
     <add :is-show.sync="isAdd"></add>
     <pop-up :show.sync="isMove">
@@ -23,11 +23,11 @@
     </x-header>
     <!-- <search placeholder="Search for groups or contacts"></search> -->
     <div class="below_header">
-    <group-panel v-for="group in groups" :group="group" :is-edit="isEdit">
-      <span slot="edit" class="icon_before_panel button_like" @click="deleteGroup(group)" v-show="isEdit">
-        <icon name="minus-circle"></icon>
-      </span>
-    </group-panel>
+      <group-panel v-for="group in groups" :group="group" :is-edit="isEdit">
+        <span slot="edit" class="icon_before_panel button_like" @click="deleteGroup(group)" v-show="isEdit">
+          <icon name="minus-circle"></icon>
+        </span>
+      </group-panel>
     </div>
   </div>
 

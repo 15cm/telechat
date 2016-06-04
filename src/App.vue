@@ -1,51 +1,29 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <div class="div_tabbar_buttom">
-      <tabbar class="tabbar_buttom">
-        <tabbar-item >
-          <div slot="icon">
-            <img src="./assets/contacts.png" alt="">
-          </div>
-          <span slot="label">Contacts</span>
-        </tabbar-item>
-        <tabbar-item>
-          <div slot="icon">
-            <img src="./assets/chats.png" >
-          </div>
-          <span slot="label">Chats</span>
-        </tabbar-item>
-        <tabbar-item>
-          <div slot="icon">
-            <img src="./assets/settings.png" alt="">
-          </div>
-          <span slot="label">Settings</span>
-        </tabbar-item>
-      </tabbar>
-    </div>
   </div>
 </template>
 
 <script>
-import Tabbar from 'vux-components/tabbar/tabbar'
-import TabbarItem from 'vux-components/tabbar/tabbar-item'
+// import Tabbar from 'vux-components/tabbar/tabbar'
+// import TabbarItem from 'vux-components/tabbar/tabbar-item'
 export default {
-  components: {
-    Tabbar,
-    TabbarItem
-  },
-  events: {
-    'on-item-click': function (index) {
-      switch (index) {
-        case '0': this.$router.go({ name: 'contacts' })
-          break
-        case '1': this.$router.go({ name: 'chats' })
-          break
-        case '2': this.$router.go({ name: 'settings' })
-          break
-      }
-    }
-  }
+  // components: {
+  //   Tabbar,
+  //   TabbarItem
+  // },
+  // events: {
+  //   'on-item-click': function (index) {
+  //     switch (index) {
+  //       case '0': this.$router.go({ name: 'contacts' })
+  //         break
+  //       case '1': this.$router.go({ name: 'chats' })
+  //         break
+  //       case '2': this.$router.go({ name: 'settings' })
+  //         break
+  //     }
+  //   }
+  // }
 }
 </script>
 

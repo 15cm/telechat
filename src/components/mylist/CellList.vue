@@ -10,7 +10,8 @@
           <icon name="minus-circle"></icon>
         </span>
     </chat-cell>
-    <!-- <group-cell class="clickable unselectable" v-for="item in items" :title="item.name" @click="onGroupSelect(item)" v-if="type == '3'"></group-cell> -->
+    <msg-cell v-for="item in items" :msg="item" v-if="type == '3'">
+    </msg-cell>
   </div>
 </template>
 
@@ -18,11 +19,13 @@
 import Icon from 'vue-awesome/dist/vue-awesome'
 import MemberCell from '../mycell/MemberCell'
 import ChatCell from '../mycell/ChatCell'
+import MsgCell from '../mycell/MsgCell'
 export default {
   components: {
     Icon,
     MemberCell,
-    ChatCell
+    ChatCell,
+    MsgCell
   },
   props: {
     type: {

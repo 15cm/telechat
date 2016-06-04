@@ -1,13 +1,14 @@
-import App from './App'
+// import App from './App'
 import Contacts from './components/contacts/Contacts'
 import Profile from './components/contacts/Profile'
 import Chats from './components/chats/Chats'
 import ChatWindow from './components/chats/ChatWindow'
 import Settings from './components/settings/Settings'
+import Index from './components/Index'
 export function configRouter (router) {
   router.map({
     '/index': {
-      component: App,
+      component: Index,
       subRoutes: {
         '/contacts': {
           name: 'contacts',
