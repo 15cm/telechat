@@ -15,6 +15,30 @@ a:focus {
   text-decoration: none;
 }
 
+.banner {
+  top: 30%;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+}
+
+.input_field {
+  top: 50%;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  position: fixed;
+}
+
+.below_form {
+  top: 70%;
+  text-align: center;
+  width: 20%;
+  margin-left: 40%;
+  margin-right: 40%;
+  position: fixed;
+}
+
 .below_header {
   margin-top: 6%;
 }

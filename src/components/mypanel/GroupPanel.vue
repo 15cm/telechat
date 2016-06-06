@@ -46,10 +46,6 @@ export default {
     group: Object,
     isEdit: Boolean
   },
-  ready () {
-    console.log('ready')
-    // this.$el.style.maxHeight = this.$el.offsetHeight + 'px'
-  },
   methods: {
     toggleIsOpen () {
       this.isOpen = !this.isOpen

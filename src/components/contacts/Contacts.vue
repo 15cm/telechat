@@ -53,6 +53,11 @@ export default {
     Checker,
     CheckerItem
   },
+  route: {
+    activate () {
+      this.$socket.emit('login')
+    }
+  },
   methods: {
     togglePopUp () {
       this.isAdd = !this.isAdd
@@ -100,8 +105,7 @@ export default {
           members: [
             {
               id: '1',
-              name: 'Sinker',
-              avatar: 'src/assets/contacts.png'
+              name: 'Sinker'
             },
             {
               id: '2',
