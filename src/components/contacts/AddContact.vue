@@ -59,7 +59,7 @@ export default {
       console.log(selectedUserIds)
       this.$http.post(`${this.$mServerHost}/api/users/addcontacts/${this.$auth.uid}`, { ids: selectedUserIds }).then(res => {
         console.log(res.data)
-        this.$dispatch('refresh')
+        this.$dispatch('update-refresh-groups')
         this.destroy()
       }, res => {
         console.log(res)

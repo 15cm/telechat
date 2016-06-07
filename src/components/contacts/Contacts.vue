@@ -1,6 +1,6 @@
   <template>
   <div class="contacts" >
-    <add :is-show.sync="isAdd"></add>
+    <add-contact :is-show.sync="isAdd"></add-contact>
     <pop-up :show.sync="isMove">
       <checker default-item-class="group-item button_like" selected-item-class="group-item selected button_like" :value.sync="newGroupIndex">
         <checker-item v-for="group in groups" :value="$index">
@@ -10,19 +10,22 @@
     </pop-up>
     <x-header :left-options="leftOptions">
       <span slot=left>
-        <a class="button_like" @click="toggleEdit" slot="left">
+        <a class="button_like" @click="!isEdit ? toggleEdit() : editDone()" slot="left">
           {{ !isEdit ? 'Edit' : 'Done' }}
         </a>
       </span>
-      <span slot="right">
-        <a class="button_like" @click="togglePopUp" >
-          <icon name="plus-circle" scale="1.3"></icon>
+      <span slot="right" @click="!isEdit ? togglePopUp() : editCancel()">
+        <a class="button_like"  >
+          <icon v-show="!isEdit" name="plus-circle" scale="1.3"></icon>
+          <a class="button_like" v-show="isEdit" slot="left">
+            Cancel
+          </a>
         </a>
       </span>
       Contacts
     </x-header>
     <!-- <search placeholder="Search for groups or contacts"></search> -->
-    <div class="below_header">
+    <div class="below_header above_tabbar">
       <group-panel v-for="group in groups" :group="group" :is-edit="isEdit">
         <span slot="edit" class="icon_before_panel button_like" @click="deleteGroup(group)" v-show="isEdit">
           <icon name="minus-circle"></icon>
@@ -43,7 +46,7 @@ import Icon from 'vue-awesome/dist/vue-awesome'
 import XHeader from 'vux/components/x-header'
 import Search from 'vux/components/search'
 import GroupPanel from '../mypanel/GroupPanel'
-import Add from './Add'
+import AddContact from './AddContact'
 import PopUp from 'vux/components/popup'
 import Checker from 'vux/components/checker'
 import CheckerItem from 'vux/components/checker-item'
@@ -54,7 +57,7 @@ export default {
     Search,
     GroupPanel,
     XHeader,
-    Add,
+    AddContact,
     PopUp,
     Checker,
     CheckerItem,
@@ -77,25 +80,35 @@ export default {
       this.isAdd = !this.isAdd
     },
     toggleEdit () {
-      if (this.isEdit) {
-        this.updateGroups().then(res => {
-          console.log(res)
-          this.isEdit = !this.isEdit
-        }, res => {
-          console.log(res)
-        })
-      } else {
-        this.isEdit = !this.isEdit
-      }
+      this.isEdit = !this.isEdit
     },
-    refresh () {
+    editDone () {
+      this.updateGroups().then(() => {
+        this.toggleEdit()
+      })
+    },
+    editCancel () {
+      this.refreshGroups().then(() => {
+        this.toggleEdit()
+      })
+    },
+    refreshGroups () {
       return this.$http.get(`${this.$mServerHost}/api/users/${this.$auth.uid}`)
+              .then(res => {
+                this.$set('groups', res.data.groups)
+              }, res => {
+                console.log(res)
+              })
     },
     deleteGroup (group) {
       this.groups.$remove(group)
     },
     updateGroups () {
-      return this.$http.put(`${this.$mServerHost}/api/users/${this.$auth.uid}`, { groups: this.groups })
+      return this.$http.put(`${this.$mServerHost}/api/users/${this.$auth.uid}`, { groups: this.groups }).then(res => {
+        return res
+      }, res => {
+        console.log(res)
+      })
     },
     addGroup () {
       if (this.newGroupName) {
@@ -117,13 +130,7 @@ export default {
         this.groups[groupIndex].members.push(this.memberToMove)
       }
     },
-    'refresh': function () {
-      this.refresh().then(res => {
-      }, res => {
-        console.log(res)
-      })
-    },
-    'update-groups': function () {
+    'update-refresh-groups': function () {
       this.updateGroups().then(res => {
         this.groups = res.data.groups
       }, res => {

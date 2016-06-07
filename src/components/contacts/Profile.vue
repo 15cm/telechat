@@ -1,8 +1,12 @@
 <template>
-    <div class="profile">
-      <h1>test profile</h1>
-    </div>
+
 </template>
 
 <script>
+import XHeader from 'vux/components/x-header'
+export default {
+  components: {
+    XHeader
+  }
+}
 </script>

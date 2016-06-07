@@ -43,6 +43,10 @@ a:focus {
   margin-top: 6%;
 }
 
+.above_tabbar {
+  margin-bottom: 8%;
+}
+
 .tabbar_buttom {
   height: 8%;
   position: fixed;
