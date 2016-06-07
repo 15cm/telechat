@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="cell_footer button_like">
-      <a v-link="{ path: '/contacts/profile', params: {id: member.id} }" v-show="!isEdit">
+      <a v-link="{ path: '/contacts/profile', params: {id: member._id} }" v-show="!isEdit">
         <icon name="angle-right" ></icon>
       </a>
       <a  v-show="isEdit" @click="onMoveClick(member)">
@@ -30,8 +30,6 @@ export default {
   },
   methods: {
     onMoveClick (member) {
-      console.log('In cell:')
-      console.log(member)
       this.$dispatch('on-move-member', member)
     }
   },

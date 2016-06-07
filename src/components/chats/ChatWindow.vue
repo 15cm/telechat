@@ -18,11 +18,18 @@ export default {
     CellList,
     XHeader
   },
+  ready () {
+    this.socket = window.socket
+    this.socket.on('recvMsg', msg => {
+      this.msgs.push(msg)
+    })
+  },
   data () {
     return {
       leftOptions: {
         showBack: true
       },
+      socket: {},
       msgs: [
         {
           userId: 1,

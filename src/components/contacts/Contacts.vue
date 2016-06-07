@@ -28,6 +28,11 @@
           <icon name="minus-circle"></icon>
         </span>
       </group-panel>
+      <add-group v-show="isEdit" :value.sync="newGroupName">
+        <span slot="edit" class="icon_before_panel button_like" @click="addGroup()">
+          <icon name="plus"></icon>
+        </span>
+      </add-group>
     </div>
   </div>
 
@@ -42,6 +47,7 @@ import Add from './Add'
 import PopUp from 'vux/components/popup'
 import Checker from 'vux/components/checker'
 import CheckerItem from 'vux/components/checker-item'
+import AddGroup from './AddGroup'
 export default {
   components: {
     Icon,
@@ -51,11 +57,19 @@ export default {
     Add,
     PopUp,
     Checker,
-    CheckerItem
+    CheckerItem,
+    AddGroup
   },
   route: {
     activate () {
-      this.$socket.emit('login')
+      if (this.$auth.uid) {
+        this.$socket.emit('login')
+        this.refresh().then(res => {
+          this.$set('groups', res.data.groups)
+        }, res => {
+          console.log(res)
+        })
+      }
     }
   },
   methods: {
@@ -63,17 +77,38 @@ export default {
       this.isAdd = !this.isAdd
     },
     toggleEdit () {
-      this.isEdit = !this.isEdit
+      if (this.isEdit) {
+        this.updateGroups().then(res => {
+          console.log(res)
+          this.isEdit = !this.isEdit
+        }, res => {
+          console.log(res)
+        })
+      } else {
+        this.isEdit = !this.isEdit
+      }
+    },
+    refresh () {
+      return this.$http.get(`${this.$mServerHost}/api/users/${this.$auth.uid}`)
     },
     deleteGroup (group) {
       this.groups.$remove(group)
+    },
+    updateGroups () {
+      return this.$http.put(`${this.$mServerHost}/api/users/${this.$auth.uid}`, { groups: this.groups })
+    },
+    addGroup () {
+      if (this.newGroupName) {
+        this.groups.push({name: this.newGroupName, members: []})
+        this.newGroupName = ''
+      }
     }
   },
   events: {
     'on-move-member-group': function (member, oldGroup) {
       this.memberToMove = member
       this.isMove = true
-      this.newGroupIndex = this.oldGroupIndex = this.groups.findIndex(group => group.id === oldGroup.id)
+      this.newGroupIndex = this.oldGroupIndex = this.groups.findIndex(group => group._id === oldGroup._id)
     },
     'on-item-click': function (groupIndex) {
       this.isMove = false
@@ -81,6 +116,19 @@ export default {
         this.groups[this.oldGroupIndex].members.$remove(this.memberToMove)
         this.groups[groupIndex].members.push(this.memberToMove)
       }
+    },
+    'refresh': function () {
+      this.refresh().then(res => {
+      }, res => {
+        console.log(res)
+      })
+    },
+    'update-groups': function () {
+      this.updateGroups().then(res => {
+        this.groups = res.data.groups
+      }, res => {
+        console.log(res)
+      })
     }
   },
   data () {
@@ -98,92 +146,8 @@ export default {
       memberToMove: null,
       oldGroupIndex: null,
       newGroupIndex: null,
-      groups: [
-        {
-          id: '1',
-          name: 'default',
-          members: [
-            {
-              id: '1',
-              name: 'Sinker'
-            },
-            {
-              id: '2',
-              name: 'Sinkerine'
-            }
-          ]
-        },
-        {
-          id: '2',
-          name: 'zju',
-          members: [
-            {
-              id: '3',
-              name: 'Narcissu'
-            }
-          ]
-        },
-        {
-          id: '3',
-          name: 'bgm',
-          members: [
-            {
-              id: '4',
-              name: '15cm'
-            }
-          ]
-        },
-        {
-          id: '4',
-          name: 'zju',
-          members: [
-            {
-              id: '4',
-              name: 'Narcissu'
-            }
-          ]
-        },
-        {
-          id: '5',
-          name: 'zju',
-          members: [
-            {
-              id: '5',
-              name: 'Narcissu'
-            }
-          ]
-        },
-        {
-          id: '6',
-          name: 'zju',
-          members: [
-            {
-              id: '6',
-              name: 'Narcissu'
-            }
-          ]
-        },
-        {
-          id: '7',
-          name: 'zju',
-          members: [
-            {
-              id: '7',
-              name: 'Narcissu'
-            }
-          ]
-        },
-        {
-          id: '8',
-          name: 'zju',
-          members: [
-            {
-              id: '8',
-              name: 'Narcissu'
-            }
-          ]
-        }
-      ]
+      groups: [],
+      newGroupName: ''
     }
   }
 }

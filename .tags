@@ -1,3 +1,0 @@
-Vue	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src/main.js	/^MyConfig.install = Vue => {$/;"	class	line:9
-Vue.$mServerHost	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src/main.js	/^  Vue.prototype.$mServerHost = 'http:\/\/localhost:9090'$/;"	method	line:10
-configRouter	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src/route-config.js	/^export function configRouter (router) {$/;"	function	line:11

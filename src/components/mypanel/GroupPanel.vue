@@ -8,15 +8,10 @@
         <div class="panel_bd">
           <h4>{{ group.name }}</h4>
         </div>
-    </div>
-    <!-- <div v-else class="panel_box button_like" v-bind:class="{'edit': isEdit}" @dblclick="toggleIsOpen">
-      <div class="panel_hd">
-        <icon :name="isOpen ? 'caret-down' : 'caret-right'" scale="0.8" > </icon>
-      </div>
-        <div class="panel_bd">
-          <h4>{{ group.name }}</h4>
+        <div class="after_panel_bd">
+          <h5>({{ group.members.length }})</h5>
         </div>
-    </div> -->
+    </div>
     <div class="panel-collapse" v-el:group-panel v-show="isOpen" transition="collapse">
       <div class="panel-body">
         <cell-list :items="group.members" :is-edit="isEdit">
@@ -35,10 +30,6 @@ export default {
     CellList
   },
   props: {
-    mobile: {
-      type: Boolean,
-      default: false
-    },
     isOpen: {
       type: Boolean,
       default: false
@@ -84,5 +75,9 @@ export default {
 
 .collapse-enter, .collapse-leave {
   max-height: 0px !important;
+}
+
+.after_panel_bd {
+  margin-left: 5px;
 }
 </style>

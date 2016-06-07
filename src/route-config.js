@@ -48,7 +48,7 @@ export function configRouter (router) {
     }
   })
   router.beforeEach(transition => {
-    if (!auth.uid) {
+    if (!auth.uid && transition.to.path !== '/register') {
       router.go({name: 'login'})
     }
     if (transition.to.path === '/login') {

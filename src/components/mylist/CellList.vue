@@ -12,6 +12,7 @@
     </chat-cell>
     <msg-cell v-for="item in items" :msg="item" v-if="type == '3'">
     </msg-cell>
+    <contact-cell v-for="item in items" :contact="item" v-if="type == '4'"></contact-cell>
   </div>
 </template>
 
@@ -20,12 +21,14 @@ import Icon from 'vue-awesome/dist/vue-awesome'
 import MemberCell from '../mycell/MemberCell'
 import ChatCell from '../mycell/ChatCell'
 import MsgCell from '../mycell/MsgCell'
+import ContactCell from '../mycell/ContactCell'
 export default {
   components: {
     Icon,
     MemberCell,
     ChatCell,
-    MsgCell
+    MsgCell,
+    ContactCell
   },
   props: {
     type: {
@@ -42,8 +45,6 @@ export default {
   },
   events: {
     'on-move-member': function (item) {
-      console.log('In cell list:')
-      console.log(item)
       return true
     }
   },
