@@ -4,22 +4,32 @@
       <h2>Telechat</h2>
       <p>登录</p>
     </div>
+    <toast :show.sync="showSuccess" :time="2000" type="success">
+      <p>登录成功</p>
+    </toast>
+    <toast :show.sync="showWarn" :time="2000" type="warn">
+      <p>邮箱或密码错误</p>
+    </toast>
     <div class="input_field">
       <x-input title="用户邮箱" placeholder="xxx@example.com" v-ref:iemail :value.sync="email" is-type="email"></x-input>
       <x-input title="密码" placeholder="请输入位密码(6-20位)" v-ref:ipassword :value.sync="password" :min="6" :max="20"></x-input>
       <x-button @click="submit" :disabled="!($refs.iemail.valid && $refs.ipassword.valid)" text="登录"></x-button>
     </div>
-    <a class="below_form" v-link="{ path: '/register' }">新用户注册</a>
+    <div class="link_below_form">
+      <a v-link="{ path: '/register' }">新用户注册</a>
+    </div>
   </div>
 </template>
 
 <script>
 import XInput from 'vux/components/x-input'
 import XButton from 'vux/components/x-button'
+import Toast from 'vux/components/toast'
 export default {
   components: {
     XInput,
-    XButton
+    XButton,
+    Toast
   },
   methods: {
     submit () {
@@ -27,10 +37,12 @@ export default {
         email: this.email,
         password: this.password
       }).then(res => {
-        this.$auth.uid = res.data
-        console.log(this.$auth.uid)
+        this.$auth.login(res.data)
+        this.showSuccess = !this.showSuccess
+        this.$socket.emit('login', {uid: this.$auth.uid})
         this.$router.go({ name: 'index' })
       }, res => {
+        this.showWarn = !this.showWarn
         console.log('用户邮箱和密码不匹配')
       })
     }
@@ -38,7 +50,9 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      showSuccess: false,
+      showWarn: false
     }
   }
 }

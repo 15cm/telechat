@@ -15,4 +15,8 @@ export default {
 @import '~vux/vux.css';
 @import './styles/css/bootstrap.min.css';
 @import './styles/css/basic.css';
+
+#app {
+  height: 100%;
+}
 </style>

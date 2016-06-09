@@ -1,17 +1,17 @@
 <template>
   <div class="cell_box">
       <slot name="edit"></slot>
-      <div class="cell_box_md button_like" v-bind:class="{ 'edit': isEdit }">
+      <a class="cell_box_md button_like" v-link="{ name: 'profile', params: {id: member.uid} }" v-bind:class="{ 'edit': isEdit }">
         <div class="cell_hd">
           <img class="avatar" :src="mUser.avatar" >
         </div>
         <div class="cell_bd">
           <h4>{{ mUser.name }}</h4>
         </div>
-      </div>
+      </a>
       <div class="cell_footer button_like">
-      <a v-link="{ path: '/contacts/profile', params: {id: member.uid} }" v-show="!isEdit">
-        <icon name="angle-right" ></icon>
+      <a v-link="{ name: 'chatroom', params: {id: member.uid} }" v-show="!isEdit">
+        <icon name="paper-plane" ></icon>
       </a>
       <a v-show="isEdit" @click="onMoveClick(member)">
         <icon name="align-justify" ></icon>

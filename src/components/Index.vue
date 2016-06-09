@@ -34,6 +34,11 @@ export default {
     Tabbar,
     TabbarItem
   },
+  route: {
+    activate () {
+      this.$dispatch('on-item-click', '0')
+    }
+  },
   events: {
     'on-item-click': function (index) {
       switch (index) {
@@ -48,3 +53,9 @@ export default {
   }
 }
 </script>
+
+<style>
+#index {
+  height: 99%;
+}
+</style>

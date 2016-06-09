@@ -6,7 +6,7 @@ import Index from './components/Index'
 import Contacts from './components/contacts/Contacts'
 import Profile from './components/contacts/Profile'
 import Chats from './components/chats/Chats'
-import ChatWindow from './components/chats/ChatWindow'
+import ChatRoom from './components/chats/ChatRoom'
 import Settings from './components/settings/Settings'
 export function configRouter (router) {
   router.map({
@@ -38,21 +38,21 @@ export function configRouter (router) {
         }
       }
     },
-    '/chatting': {
-      name: 'chatting',
-      component: ChatWindow
+    '/chatroom/:id': {
+      name: 'chatroom',
+      component: ChatRoom
     },
-    '/profile': {
+    '/profile/:id': {
       name: 'profile',
       component: Profile
     }
   })
   router.beforeEach(transition => {
-    if (!auth.uid && transition.to.path !== '/register') {
+    // if (transition.to.path == '/login'){
+    //   return router.go({name: 'index'})
+    // }
+    if (!auth.isLogin() && transition.to.path !== '/register') {
       router.go({name: 'login'})
-    }
-    if (transition.to.path === '/login') {
-      auth.uid = null
     }
     transition.next()
   })

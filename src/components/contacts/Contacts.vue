@@ -24,8 +24,7 @@
       </span>
       Contacts
     </x-header>
-    <!-- <search placeholder="Search for groups or contacts"></search> -->
-    <div class="below_header above_tabbar">
+    <div class="main">
       <group-panel v-for="group in groups" :group="group" :is-edit="isEdit">
         <span slot="edit" class="icon_before_panel button_like" @click="deleteGroup(group)" v-show="isEdit">
           <icon name="minus-circle"></icon>
@@ -67,11 +66,7 @@ export default {
     activate () {
       if (this.$auth.uid) {
         this.$socket.emit('login')
-        this.refresh().then(res => {
-          this.$set('groups', res.data.groups)
-        }, res => {
-          console.log(res)
-        })
+        this.refreshGroups()
       }
     }
   },
@@ -130,12 +125,9 @@ export default {
         this.groups[groupIndex].members.push(this.memberToMove)
       }
     },
-    'update-refresh-groups': function () {
-      this.updateGroups().then(res => {
-        this.groups = res.data.groups
-      }, res => {
-        console.log(res)
-      })
+    'update-refresh-groups': function (newUser) {
+      console.log(newUser)
+      this.$set('groups', newUser.groups)
     }
   },
   data () {
@@ -161,11 +153,19 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="less" scoped>
 .group-item {
   display: block;
 }
 .group-item.selected {
   color: #5a80e3;
+}
+.contacts {
+  height: 100%;
+  .main {
+    height: ~'calc(100% - 110px)';
+    position: relative;
+    overflow-y: scroll;
+  }
 }
 </style>

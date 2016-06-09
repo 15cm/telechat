@@ -22,3 +22,39 @@ a:focus	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src
 .cell_title	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src/styles/css/basic.css	/^.cell_title {$/;"	function	line:124
 .cell_title_desc	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src/styles/css/basic.css	/^.cell_title_desc {$/;"	function	line:127
 .avatar	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/telechat/src/styles/css/basic.css	/^.avatar {$/;"	function	line:132
+configRouter	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/route-config.js	/^export function configRouter (router) {$/;"	function	line:11
+constructor	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/auth.js	/^  constructor () {$/;"	function	line:2
+login	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/auth.js	/^  login (uid) {$/;"	function	line:5
+logout	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/auth.js	/^  logout () {$/;"	function	line:9
+isLogin	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/auth.js	/^  isLogin () {$/;"	function	line:13
+Vue	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/main.js	/^MyConfig.install = Vue => {$/;"	class	line:11
+Vue.$mServerHost	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/main.js	/^  Vue.prototype.$mServerHost = 'http:\/\/localhost:9090'$/;"	method	line:12
+.button_like	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.button_like {$/;"	function	line:1
+a:hover	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^a:hover {$/;"	function	line:10
+a:focus	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^a:focus {$/;"	function	line:14
+html	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^html {$/;"	function	line:18
+body	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^body {$/;"	function	line:21
+.x-header-left	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.x-header-left {$/;"	function	line:24
+.banner	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.banner {$/;"	function	line:33
+.input_field	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.input_field {$/;"	function	line:40
+.below_form	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.below_form {$/;"	function	line:48
+.below_header	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.below_header {$/;"	function	line:57
+.above_tabbar	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.above_tabbar {$/;"	function	line:61
+.tabbar_buttom	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.tabbar_buttom {$/;"	function	line:65
+.send_button_box	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.send_button_box {$/;"	function	line:70
+.send_button	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.send_button {$/;"	function	line:76
+.panel_box	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.panel_box {$/;"	function	line:83
+.x-header	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.x-header {$/;"	function	line:88
+.panel_box .panel_hd	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.panel_box .panel_hd {$/;"	function	line:95
+.panel_box .panel_bd	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.panel_box .panel_bd {$/;"	function	line:100
+.icon_before_cell	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.icon_before_cell {$/;"	function	line:105
+.icon_before_panel	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.icon_before_panel {$/;"	function	line:111
+.cell_box	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.cell_box {$/;"	function	line:115
+.cell_box_md	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.cell_box_md{$/;"	function	line:121
+.cell_box .cell_hd	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.cell_box .cell_hd {$/;"	function	line:128
+.cell_box_md .cell_hd	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.cell_box_md .cell_hd {$/;"	function	line:135
+.cell_bd	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.cell_bd {$/;"	function	line:142
+.cell_footer	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.cell_footer {$/;"	function	line:147
+.cell_title	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.cell_title {$/;"	function	line:152
+.cell_title_desc	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.cell_title_desc {$/;"	function	line:155
+.cell_content	/Users/sinkerine/Documents/zju/CS/CS_course/BS/FinalProject/Telechat/src/styles/css/basic.css	/^.cell_content {$/;"	function	line:160

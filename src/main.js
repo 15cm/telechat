@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import { configRouter } from './route-config'
 import socketio from 'socket.io-client'
 import vueResource from 'vue-resource'
+import VueAsyncData from 'vue-async-data'
+// import VueMoment from 'vue-moment'
 import auth from './auth'
 
 var MyConfig = {}
@@ -19,6 +21,9 @@ var router = new VueRouter({
 configRouter(router)
 
 Vue.use(vueResource)
+
+Vue.use(VueAsyncData)
+Vue.use(require('vue-moment'))
 
 var App = Vue.extend(require('./App.vue'))
 router.start(App, 'app')
