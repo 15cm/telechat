@@ -1,8 +1,15 @@
 <template>
   <div id="chats">
+    <toast :show.sync="showSuccess" :time="2000" type="success">
+      <p>修改完成</p>
+    </toast>
+    <toast :show.sync="showWarn" :time="2000" type="warn">
+      <p>取消修改</p>
+    </toast>
       <x-header :left-options="leftOptions">
         Chats
-        <span slot="right"><a class="button_like" @click="toggleEdit">
+        <span slot="right"><a v-show="isEdit"class="button_like" @click="editCancel">Cancel</a></span>
+        <span slot="left"><a class="button_like" @click="!isEdit ? toggleEdit() : editDone()">
           {{ !isEdit ? 'Edit' : 'Done' }}
         </a></span>
       </x-header>
@@ -17,25 +24,48 @@ import XHeader from 'vux/components/x-header'
 import Icon from 'vue-awesome/dist/vue-awesome'
 import Search from 'vux/components/search'
 import CellList from '../mylist/CellList'
+import Toast from 'vux/components/toast'
 export default {
   components: {
     XHeader,
     Icon,
     Search,
-    CellList
+    CellList,
+    Toast
   },
   route: {
     data (transition) {
-      return this.$http
-              .get(`${this.$mServerHost}/api/users/${this.$auth.uid}`)
-              .then(res => {
-                return { chats: res.data.chats }
-              })
+      this.refreshChats().then(()=>{
+        transition.next()
+      })
     }
   },
   methods: {
+    refreshChats () {
+      return this.$http
+              .get(`${this.$mServerHost}/api/users/${this.$auth.uid}`)
+              .then(res => {
+                this.$set('chats',res.data.chats)
+              }, res=> {
+                console.log(res)
+              })
+    },
     toggleEdit () {
       this.isEdit = !this.isEdit
+    },
+    editDone () {
+      this.$http.put(`${this.$mServerHost}/api/users/${this.$auth.uid}`, {
+        chats: this.chats
+      }).then(res => {
+        this.showSuccess = !this.showSuccess
+        this.toggleEdit()
+      })
+    },
+    editCancel () {
+      this.refreshChats().then(() => {
+        this.showWarn = !this.showWarn
+        this.toggleEdit()
+      })
     }
   },
   data () {
@@ -44,7 +74,9 @@ export default {
         showBack: false
       },
       isEdit: false,
-      chats: []
+      chats: [],
+      showSuccess: false,
+      showWarn: false
     }
   }
 }

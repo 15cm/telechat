@@ -8,6 +8,12 @@
         </checker-item>
       </checker>
     </pop-up>
+    <toast :show.sync="showSuccess" :time="2000" type="success">
+      <p>修改完成</p>
+    </toast>
+    <toast :show.sync="showWarn" :time="2000" type="warn">
+      <p>取消修改</p>
+    </toast>
     <x-header :left-options="leftOptions">
       <span slot=left>
         <a class="button_like" @click="!isEdit ? toggleEdit() : editDone()" slot="left">
@@ -50,6 +56,7 @@ import PopUp from 'vux/components/popup'
 import Checker from 'vux/components/checker'
 import CheckerItem from 'vux/components/checker-item'
 import AddGroup from './AddGroup'
+import Toast from 'vux/components/toast'
 export default {
   components: {
     Icon,
@@ -60,7 +67,8 @@ export default {
     PopUp,
     Checker,
     CheckerItem,
-    AddGroup
+    AddGroup,
+    Toast
   },
   route: {
     activate () {
@@ -79,11 +87,13 @@ export default {
     },
     editDone () {
       this.updateGroups().then(() => {
+        this.showSuccess = !this.showSuccess
         this.toggleEdit()
       })
     },
     editCancel () {
       this.refreshGroups().then(() => {
+        this.showWarn = !this.showWarn
         this.toggleEdit()
       })
     },
@@ -146,7 +156,9 @@ export default {
       oldGroupIndex: null,
       newGroupIndex: null,
       groups: [],
-      newGroupName: ''
+      newGroupName: '',
+      showSuccess: false,
+      showWarn: false
     }
   }
 }
