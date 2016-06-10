@@ -7,6 +7,17 @@
   user-select: none;
 }
 
+p {
+  font-family: Helvetica, "Hiragino Sans GB W3";
+}
+
+h4 {
+  font-family: Helvetica, "Hiragino Sans GB W3";
+}
+a {
+  text-decoration: none;
+}
+
 a:hover {
   text-decoration: none;
 }
@@ -21,7 +32,12 @@ html {
 body {
   height: 100%;
 }
-.x-header-left {
+
+.unset {
+  color: #aeadb1;
+}
+
+.x-header-back {
   cursor: pointer;
   -khtml-user-select: none;
   -moz-user-select: none;
@@ -111,10 +127,12 @@ body {
 }
 
 .cell_box {
-  margin-left: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   flex-basis: 100%;
+  border-bottom: 1px solid #d9d9d9;
 }
 .cell_box_md{
   margin-left: 5px;

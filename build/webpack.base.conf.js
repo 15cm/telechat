@@ -19,7 +19,7 @@ module.exports = {
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components'),
-      'vux-components': 'vux/src/components'
+      'static': path.resolve(__dirname, '../static')
     }
   },
   resolveLoader: {
@@ -49,7 +49,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel',
         include: projectRoot,
-        exclude: /node_modules/
+        exclude: /(node_modules)|(static)/
       },
       {
         test: /\.json$/,

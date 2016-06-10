@@ -1,5 +1,5 @@
 <template>
-    <x-header>
+    <x-header :left-options="leftOptions">
       <a v-link="{name: 'chatroom', params: {id: $route.params.id}}" class="button_like" slot="right">
         <icon name="paper-plane" ></icon>
       </a>
@@ -20,7 +20,7 @@
           <h4 class="profile_cell_title">个性签名</h3>
         </div>
         <div>
-          <p class="cell_content">{{ user.sign ? user.sign : '签名什么的才懒得设呢' }}</p>
+          <p class="cell_content " :class="{ unset: !user.sign }">{{ user.sign ? user.sign : '签名什么的才懒得设呢' }}</p>
         </div>
     </div>
 </template>
@@ -45,6 +45,10 @@ export default {
   },
   data () {
     return {
+      leftOptions: {
+        showBack: true,
+        backText: '返回'
+      },
       user: {
         name: '',
         avatar: '',

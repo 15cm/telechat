@@ -1,16 +1,16 @@
 <template>
   <div class="chat-window">
-    <toast :show.sync="showWarn" :time="2000" type="warn">
+    <toast :show.sync="showWarn" :time="1000" type="warn">
       <p>网络错误</p>
     </toast>
     <x-header :left-options="leftOptions">
-      正在和 {{ contact ? contact.name : '...' }} 聊天
+      正在和 {{ contact ? `「${contact.name}」` : '...' }} 聊天
     </x-header>
     <div class="main">
-      <div class="m-message">
+      <div class="m-message" v-scroll-bottom="msgs">
         <ul>
           <li v-for="item in msgs">
-              <p class="time"><span>{{item.time }}</span></p>
+              <p class="time"><span>{{ item.time | moment "dddd, MMMM Do YYYY, h:mm:ss" }}</span></p>
               <div class="main" :class="{ self: item.sid === $auth.uid }">
                   <img class="avatar" width="30" height="30" :src="item | avatar" />
                   <div class="text">{{item.content}}</div>
@@ -19,7 +19,7 @@
         </ul>
       </div>
         <div class="m-text">
-          <textarea @keyup="inputing" placeholder="Ctrl + Enter 发送" v-model="textToSend" ></textarea>
+          <textarea @keyup="inputing"  placeholder="Ctrl + Enter 发送" v-model="textToSend" ></textarea>
           <button v-if="$isMobile" @click="sendMsg()" class="send_button_box button_like">
             <div class="send_button">
               <icon name="paper-plane"></icon>
@@ -35,8 +35,8 @@ import CellList from '../mylist/CellList'
 import XHeader from 'vux/components/x-header'
 import XTextarea from 'vux/components/x-textarea'
 import Icon from 'vue-awesome/dist/vue-awesome'
-import { Vue } from '../../main'
 import Toast from 'vux/components/toast'
+import Moment from 'moment'
 export default {
   components: {
     CellList,
@@ -53,35 +53,6 @@ export default {
         }
       })
     },
-    // deactivate (transition) {
-    //   if(!this.me || !this.chat){
-    //       this.showWarn = !this.showWarn
-    //       this.$router.go({name: 'contacts'})
-    //       return transition.next()
-    //   }
-    //   var rid = this.contact._id
-    //   var chat = this.me.chats.find(item => item.rid == rid)
-    //   var lastMsg = this.msgs.reverse().find(item => item.rid == this.me._id)
-    //   console.log('lastMsg')
-    //   console.log(lastMsg)
-    //   if(chat){
-    //     chat.lastMsg = lastMsg.content
-    //     chat.lastTime = lastMsg.time
-    //   } else {
-    //     this.me.chats.push({
-    //       rid: rid,
-    //       lastTime: lastMsg.time,
-    //       lastMsg: lastMsg.content
-    //     })
-    //   }
-    //   this.$http.put(`${this.$mServerHost}/api/users/${this.me._id}`, {chats: this.me.chats}).then(res => {
-    //     console.log(res)
-    //     transition.next()
-    //   }, res => {
-    //     console.log(res)
-    //     transition.next()
-    //   })
-    // },
     data () {
       return Promise.all([
         this.$http.get(`${this.$mServerHost}/api/users/${this.$auth.uid}`),
@@ -99,13 +70,17 @@ export default {
   },
   filters: {
     avatar (msg) {
-      return msg.sid === this.$auth.oid ? this.me.avatar : this.contact.avatar
+      return msg.sid === this.$auth.uid ? this.me.avatar : this.contact.avatar
+    },
+    moment (date, arg) {
+      if(date){
+        return Moment(new Date(date), arg)
+      }
     }
   },
   directives: {
     // 发送消息后滚动到底部
     'scroll-bottom' () {
-      console.log(Vue)
       Vue.nextTick(() => {
         this.el.scrollTop = this.el.scrollHeight - this.el.clientHeight;
       });
@@ -131,7 +106,8 @@ export default {
   data () {
     return {
       leftOptions: {
-        showBack: true
+        showBack: true,
+        backText: '返回'
       },
       socket: {},
       msgs: [],

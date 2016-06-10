@@ -27,18 +27,18 @@
 </template>
 
 <script>
-import Tabbar from 'vux-components/tabbar/tabbar'
-import TabbarItem from 'vux-components/tabbar/tabbar-item'
+import Tabbar from 'vux/components/tabbar'
+import TabbarItem from 'vux/components/tabbar-item'
 export default {
   components: {
     Tabbar,
     TabbarItem
   },
-  route: {
-    activate () {
-      this.$dispatch('on-item-click', '0')
-    }
-  },
+  // route: {
+  //   activate () {
+  //     this.$dispatch('on-item-click', '0')
+  //   }
+  // },
   events: {
     'on-item-click': function (index) {
       switch (index) {

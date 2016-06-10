@@ -1,5 +1,5 @@
 <template>
-  <div class="cell_box">
+  <div class="chat-cell">
     <slot name="edit"></slot>
     <div class="cell_box button_like"
       v-link="{ name: 'chatroom', params: { id: chat.uid }}">

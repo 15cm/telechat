@@ -48,11 +48,11 @@ export function configRouter (router) {
     }
   })
   router.beforeEach(transition => {
-    // if (transition.to.path == '/login'){
-    //   return router.go({name: 'index'})
-    // }
     if (!auth.isLogin() && transition.to.path !== '/register') {
       router.go({name: 'login'})
+    }
+    if(transition.to.path == '/login' && transition.from.path != '/index/settings'){
+      auth.uid = null
     }
     transition.next()
   })

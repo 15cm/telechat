@@ -4,16 +4,16 @@
       <h2>Telechat</h2>
       <p>登录</p>
     </div>
-    <toast :show.sync="showSuccess" :time="2000" type="success">
+    <toast :show.sync="showSuccess" :time="1000" type="success">
       <p>登录成功</p>
     </toast>
-    <toast :show.sync="showWarn" :time="2000" type="warn">
+    <toast :show.sync="showWarn" :time="1000" type="warn">
       <p>邮箱或密码错误</p>
     </toast>
     <div class="input_field">
       <x-input title="用户邮箱" placeholder="xxx@example.com" v-ref:iemail :value.sync="email" is-type="email"></x-input>
-      <x-input title="密码" placeholder="请输入位密码(6-20位)" v-ref:ipassword :value.sync="password" :min="6" :max="20"></x-input>
-      <x-button @click="submit" :disabled="!($refs.iemail.valid && $refs.ipassword.valid)" text="登录"></x-button>
+      <x-input title="密码" type="password" placeholder="请输入位密码(6-20位)" v-ref:ipassword :value.sync="password" :min="6" :max="20"></x-input>
+      <x-button @click="submit" :disabled="!($refs.iemail.valid && $refs.ipassword.valid)" type="primary" text="登录"></x-button>
     </div>
     <div class="link_below_form">
       <a v-link="{ path: '/register' }">新用户注册</a>
