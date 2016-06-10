@@ -7,10 +7,10 @@
       <p>取消修改</p>
     </toast>
       <x-header :left-options="leftOptions">
-        Chats
-        <span slot="right"><a v-show="isEdit"class="button_like" @click="editCancel">Cancel</a></span>
+        聊天记录
+        <span slot="right"><a v-show="isEdit"class="button_like" @click="editCancel">取消</a></span>
         <span slot="left"><a class="button_like" @click="!isEdit ? toggleEdit() : editDone()">
-          {{ !isEdit ? 'Edit' : 'Done' }}
+          {{ !isEdit ? '编辑' : '确认' }}
         </a></span>
       </x-header>
       <div class="main">

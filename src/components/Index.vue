@@ -7,19 +7,19 @@
           <div slot="icon">
             <img src="../assets/contacts.png" alt="">
           </div>
-          <span slot="label">Contacts</span>
+          <span slot="label">联系人</span>
         </tabbar-item>
         <tabbar-item>
           <div slot="icon">
             <img src="../assets/chats.png" >
           </div>
-          <span slot="label">Chats</span>
+          <span slot="label">聊天记录</span>
         </tabbar-item>
         <tabbar-item>
           <div slot="icon">
             <img src="../assets/settings.png" alt="">
           </div>
-          <span slot="label">Settings</span>
+          <span slot="label">设置</span>
         </tabbar-item>
       </tabbar>
     </div>

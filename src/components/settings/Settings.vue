@@ -9,7 +9,7 @@
     <x-header :left-options="leftOptions">
         <span slot="right"><a v-show="isEdit"class="button_like" @click ="editCancel">Cancel</a></span>
         <span slot="left"><a class="button_like" @click="!isEdit ? toggleEdit() : editDone()">
-          {{ !isEdit ? 'Edit' : 'Done' }}
+          {{ !isEdit ? '编辑' : '确认' }}
         </a></span>
     </x-header>
     <div class="main">
@@ -65,6 +65,7 @@ export default {
     XButton
   },
   ready () {
+    var mServerHost = this.$mServerHost
     var uploader = Qiniu.uploader({
               runtimes: 'html5,flash,html4',
               browse_button: 'pickfiles',
@@ -73,7 +74,7 @@ export default {
               max_file_size: '2mb',
               flash_swf_url: 'bower_components/plupload/js/Moxie.swf',
               dragdrop: true,
-              uptoken_url: 'http://localhost:9090/api/qiniu/token',
+              uptoken_url: `${mServerHost}/api/qiniu/token`,
               domain: 'http://o8idiuwvl.bkt.clouddn.com',
               unique_names: true,
               get_new_uptoken: false,
@@ -113,20 +114,10 @@ export default {
   },
   route: {
     deactivate (transition) {
-      if(!this.isEdit){
-        this.updateUser().then(res => {
-          console.log(res);
-          if(transition.to.path == '/login'){
-            this.$auth.uid = null
-          }
-          transition.next()
-        })
-      }else{
-          if(transition.to.path == '/login'){
-            this.$auth.uid = null
-          }
-        transition.next()
-      }
+        if(transition.to.path == '/login'){
+          this.$auth.uid = null
+        }
+      transition.next()
     },
     data (transition) {
       this.refreshUser().then(() => {

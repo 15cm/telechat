@@ -1,24 +1,18 @@
 <template>
   <div class="add-contact">
     <pop-up :show.sync="isShow" height="100%">
+    <toast :show.sync="showWarn" :time="1000" type="warn">
+      <p>您已经添加过此用户</p>
+    </toast>
       <x-header :left-options="leftOptions" >
-        <a class="button_like" @click="cancel" slot="left">Cancel</a>
-        New Contact
-        <a class="button_like" @click="done" slot="right">Done</a>
+        <a class="button_like" @click="cancel" slot="left">取消</a>
+        添加联系人
+        <a class="button_like" @click="done" slot="right">确认</a>
       </x-header>
       <search placeholder="用关键字搜索联系人":value.sync="searchText" :results="searchResult" class="below_header">
       </search>
       <cell-list type="4" :items="selectedUsers">
       </cell-list>
-        <alert
-          :show.sync="showTop"
-          :duration="3000"
-          type="danger"
-          width="400px"
-          placement="top"
-          dismissable>
-            <p>您已添加了此用户</p>
-        </alert>
     </pop-up>
   </div>
 </template>
@@ -27,17 +21,17 @@
 import PopUp from 'vux/components/popup'
 import XHeader from 'vux/components/x-header'
 import Search from '../mysearch/Search'
-import { alert } from 'vue-strap'
 import CellList from '../mylist/CellList'
 import MemberCell from '../mycell/MemberCell'
+import Toast from 'vux/components/toast'
 export default {
   components: {
     PopUp,
     XHeader,
     Search,
-    alert,
     CellList,
-    MemberCell
+    MemberCell,
+    Toast
   },
   props: {
     isShow: Boolean
@@ -84,7 +78,7 @@ export default {
       searchResult: [],
       searchText: '',
       selectedUsers: [],
-      showTop: false
+      showWarn: false
     }
   },
   watch: {

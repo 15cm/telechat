@@ -1,19 +1,9 @@
-.button_like {
-  cursor: pointer;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;
-  user-select: none;
+
+html {
+  height: 100%;
+  font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", sans-serif;
 }
 
-p {
-  font-family: Helvetica, "Hiragino Sans GB W3";
-}
-
-h4 {
-  font-family: Helvetica, "Hiragino Sans GB W3";
-}
 a {
   text-decoration: none;
 }
@@ -26,11 +16,17 @@ a:focus {
   text-decoration: none;
 }
 
-html {
-  height: 100%;
-}
 body {
   height: 100%;
+}
+
+.button_like {
+  cursor: pointer;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 .unset {

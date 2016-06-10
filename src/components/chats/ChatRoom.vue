@@ -4,7 +4,7 @@
       <p>网络错误</p>
     </toast>
     <x-header :left-options="leftOptions">
-      正在和 {{ contact ? `「${contact.name}」` : '...' }} 聊天
+      正在和 {{ contact && contact.name ? `「${contact.name}」` : '...' }} 聊天
     </x-header>
     <div class="main">
       <div class="m-message" v-scroll-bottom="msgs">

@@ -17,18 +17,18 @@
     <x-header :left-options="leftOptions">
       <span slot=left>
         <a class="button_like" @click="!isEdit ? toggleEdit() : editDone()" slot="left">
-          {{ !isEdit ? 'Edit' : 'Done' }}
+          {{ !isEdit ? '编辑' : '确认' }}
         </a>
       </span>
       <span slot="right" @click="!isEdit ? togglePopUp() : editCancel()">
         <a class="button_like"  >
           <icon v-show="!isEdit" name="plus-circle" scale="1.3"></icon>
           <a class="button_like" v-show="isEdit" slot="left">
-            Cancel
+            取消
           </a>
         </a>
       </span>
-      Contacts
+      联系人
     </x-header>
     <div class="main">
       <group-panel v-for="group in groups" :group="group" :is-edit="isEdit">
@@ -136,7 +136,6 @@ export default {
       }
     },
     'update-refresh-groups': function (newUser) {
-      console.log(newUser)
       this.$set('groups', newUser.groups)
     }
   },
