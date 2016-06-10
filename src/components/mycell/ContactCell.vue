@@ -4,7 +4,7 @@
       <div class="cell_box_md unselectable">
         <icon name="check-circle" ></icon>
         <div class="cell_hd">
-          <img class="avatar" :src="contact.avatar" >
+          <img width="32" height="32" class="avatar" :src="contact.avatar" >
         </div>
         <div class="cell_bd">
           <h4>{{ contact.name }}</h4>

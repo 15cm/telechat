@@ -16,10 +16,10 @@
       <a href="javascript:" class="weui_search_cancel" id="search_cancel" @click="cancel">{{cancelText}}</a>
     </div>
     <div class="weui_cells weui_cells_access vux-search_show" id="search_show" v-show="isFixed && results.length && value">
-      <div class="weui_cell button_like" v-for="item in results" @click="handleResultClick(item)">
+      <div class="button_like" v-for="item in results" @click="handleResultClick(item)">
         <div class="cell_box_md">
           <div class="cell_hd">
-            <img class="avatar" :src="item.avatar" >
+            <img class="avatar" width="32" height="32" :src="item.avatar" >
           </div>
           <div class="cell_bd">
             <h4>{{ item.name }} ({{ item.email }})</h4><p>{{ item.sign }}</p>

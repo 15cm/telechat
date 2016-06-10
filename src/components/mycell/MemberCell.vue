@@ -3,7 +3,7 @@
       <slot name="edit"></slot>
       <a class="cell_box_md button_like" v-link="{ name: 'profile', params: {id: member.uid} }" v-bind:class="{ 'edit': isEdit }">
         <div class="cell_hd">
-          <img class="avatar" :src="mUser.avatar" >
+          <img width="32" height="32" class="avatar" :src="mUser.avatar" >
         </div>
         <div class="cell_bd">
           <h4>{{ mUser.name }}</h4>

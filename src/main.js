@@ -10,7 +10,7 @@ require('script!qiniu-js/dist/qiniu.min.js')
 
 var MyConfig = {}
 MyConfig.install = Vue => {
-  Vue.prototype.$mServerHost = '/'
+  Vue.prototype.$mServerHost = 'http://127.0.0.1:9090'
   Vue.prototype.$socket = socketio(Vue.prototype.$mServerHost)
   Vue.prototype.$auth = auth
 }

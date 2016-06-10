@@ -1,9 +1,9 @@
 <template>
   <div id="chats">
-    <toast :show.sync="showSuccess" :time="2000" type="success">
+    <toast :show.sync="showSuccess" :time="1000" type="success">
       <p>修改完成</p>
     </toast>
-    <toast :show.sync="showWarn" :time="2000" type="warn">
+    <toast :show.sync="showWarn" :time="1000" type="warn">
       <p>取消修改</p>
     </toast>
       <x-header :left-options="leftOptions">
