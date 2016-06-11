@@ -14,6 +14,7 @@
         </a></span>
       </x-header>
       <div class="main">
+        <spinner class="spinner-center" v-if="isSpinning"></spinner>
         <cell-list type="2" :items="chats" :is-edit="isEdit"></cell-list>
       </div>
   </div>
@@ -25,27 +26,33 @@ import Icon from 'vue-awesome/dist/vue-awesome'
 import Search from 'vux/components/search'
 import CellList from '../mylist/CellList'
 import Toast from 'vux/components/toast'
+import Spinner from 'vux/components/spinner'
 export default {
   components: {
     XHeader,
     Icon,
     Search,
     CellList,
-    Toast
+    Toast,
+    Spinner
   },
   route: {
     data (transition) {
+      this.isSpinning = true
       this.refreshChats().then(()=>{
+        this.isSpinning = false
         transition.next()
       })
     }
   },
   methods: {
     refreshChats () {
+      this.isSpinning = true
       return this.$http
               .get(`${this.$mServerHost}/api/users/${this.$auth.uid}`)
               .then(res => {
                 this.$set('chats',res.data.chats)
+                this.isSpinning = false
               }, res=> {
                 console.log(res)
               })
@@ -54,11 +61,13 @@ export default {
       this.isEdit = !this.isEdit
     },
     editDone () {
+      this.isSpinning = true
       this.$http.put(`${this.$mServerHost}/api/users/${this.$auth.uid}`, {
         chats: this.chats
       }).then(res => {
         this.showSuccess = !this.showSuccess
         this.toggleEdit()
+        this.isSpinning = false
       })
     },
     editCancel () {
@@ -76,7 +85,8 @@ export default {
       isEdit: false,
       chats: [],
       showSuccess: false,
-      showWarn: false
+      showWarn: false,
+      isSpinning: false
     }
   }
 }

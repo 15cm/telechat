@@ -31,6 +31,7 @@
       联系人
     </x-header>
     <div class="main">
+      <spinner class="spinner-center" v-if="isSpinning"></spinner>
       <group-panel v-for="group in groups" :group="group" :is-edit="isEdit">
         <span slot="edit" class="icon_before_panel button_like" @click="deleteGroup(group)" v-show="isEdit">
           <icon name="minus-circle"></icon>
@@ -57,6 +58,7 @@ import Checker from 'vux/components/checker'
 import CheckerItem from 'vux/components/checker-item'
 import AddGroup from './AddGroup'
 import Toast from 'vux/components/toast'
+import Spinner from 'vux/components/spinner'
 export default {
   components: {
     Icon,
@@ -68,7 +70,8 @@ export default {
     Checker,
     CheckerItem,
     AddGroup,
-    Toast
+    Toast,
+    Spinner
   },
   route: {
     activate () {
@@ -98,9 +101,11 @@ export default {
       })
     },
     refreshGroups () {
+      this.isSpinning = true
       return this.$http.get(`${this.$mServerHost}/api/users/${this.$auth.uid}`)
               .then(res => {
                 this.$set('groups', res.data.groups)
+                this.isSpinning = false
               }, res => {
                 console.log(res)
               })
@@ -109,7 +114,9 @@ export default {
       this.groups.$remove(group)
     },
     updateGroups () {
+      this.isSpinning = true
       return this.$http.put(`${this.$mServerHost}/api/users/${this.$auth.uid}`, { groups: this.groups }).then(res => {
+        this.isSpinning = false
         return res
       }, res => {
         console.log(res)
@@ -157,7 +164,8 @@ export default {
       groups: [],
       newGroupName: '',
       showSuccess: false,
-      showWarn: false
+      showWarn: false,
+      isSpinning: false
     }
   }
 }

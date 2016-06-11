@@ -33,6 +33,13 @@ body {
   color: #aeadb1;
 }
 
+.spinner-center {
+  display: block;
+  width: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .x-header-back {
   cursor: pointer;
   -khtml-user-select: none;
@@ -123,42 +130,60 @@ body {
 }
 
 .cell_box {
-  padding: 10px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
   flex-basis: 100%;
   border-bottom: 1px solid #d9d9d9;
 }
+
 .cell_box_md{
-  margin-left: 5px;
+  margin-bottom: 5;
   display: flex;
   align-items: center;
   flex-basis: 100%;
+  border-bottom: 1px solid #d9d9d9;
 }
 
+.cell_main {
+  display: flex;
+  flex-basis: 100%;
+}
 .cell_box .cell_hd {
-  width: 60px;
-  height: 60px;
+  padding-left: 4px;
+  padding-right: 4px;
+  width: 68px;
+  height: 68px;
   line-height: 60px;
   text-align: center
 }
 
 .cell_box_md .cell_hd {
+  padding-left: 4px;
+  padding-right: 4px;
   width: 36px;
   height: 36px;
   line-height: 36px;
   text-align: center
 }
 
-.cell_bd {
-  margin-left: 10px;
-  flex-basis: 95%;
+.cell_box .cell_bd {
+  margin-left: 16px;
+  flex-basis: 94%;
 }
 
-.cell_footer {
+.cell_box_md .cell_bd {
+  margin-left: 8px;
+  flex-basis: 94%;
+}
+
+.cell_box .cell_footer {
+  margin-left: 8px;
+  width: 36px;
+  height: 36px;
+  padding: 4px;
   float: right;
-  margin-right: 5px;
+  margin: auto;
 }
 
 .cell_title {

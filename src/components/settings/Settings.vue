@@ -1,5 +1,5 @@
 <template>
-  <div id="settings">
+  <div class="settings">
     <toast :show.sync="showSuccess" :time="1000" type="success">
       <p>{{ successInfo }}</p>
     </toast>
@@ -13,27 +13,28 @@
         </a></span>
     </x-header>
     <div class="main">
-    <div class="cell_box ">
-      <div class="cell_hd">
-        <img class="avatar" :src="user.avatar">
+      <spinner class="spinner-center" v-if="isSpinning"></spinner>
+      <div class="cell_box ">
+        <div class="cell_hd">
+          <img width="64" height="64" class="avatar" :src="user.avatar">
+        </div>
+        <div v-show="!isEdit" class="cell_bd">
+          <h4 class="cell_title">{{ user.name }}</h4>
+          <a :href="`mailto:${user.email}`" class="cell_title_desc button_like">{{ user.email }}</a>
+        </div>
+        <div v-show="isEdit" class="info_edit_box">
+          <x-input v-ref:iname :value.sync="newName" placeholder="修改昵称"></x-input>
+          <x-input v-ref:ipassword type="password" :value.sync="newPassword" placeholder="修改密码(6-20位)" :min="6" :max="20"></x-input>
+        </div>
       </div>
-      <div v-show="!isEdit" class="cell_bd">
-        <h4 class="cell_title">{{ user.name }}</h4>
-        <a :href="`mailto:${user.email}`" class="cell_title_desc button_like">{{ user.email }}</a>
+      <div v-show="isEdit" id="container" class="cell_box">
+        <a class="btn btn-default " id="pickfiles" href="javascript: void(0)" >
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>上传头像</span>
+            <span>(2MB 以内)</span>
+        </a>
       </div>
-      <div v-show="isEdit" class="info_edit_box">
-        <x-input v-ref:iname :value.sync="newName" placeholder="修改昵称"></x-input>
-        <x-input v-ref:ipassword type="password" :value.sync="newPassword" placeholder="修改密码(6-20位)" :min="6" :max="20"></x-input>
-      </div>
-    </div>
-    <div v-show="isEdit" id="container" class="cell_box">
-            <a class="btn btn-default " id="pickfiles" href="javascript: void(0)" >
-                <i class="glyphicon glyphicon-plus"></i>
-                <span>上传头像</span>
-                <span>(2MB 以内)</span>
-            </a>
-    </div>
-    <div class="cell_box">
+      <div class="cell_box">
         <div>
           <h4 class="profile_cell_title">个性签名</h3>
         </div>
@@ -44,7 +45,7 @@
         <div v-show="isEdit">
           <x-input type="text" :value.sync="newSign" placeholder="修改签名"></x-input>
         </div>
-    </div>
+      </div>
     <div class="bottom">
       <x-button @click="logout" type="warn">注销
       </x-button>
@@ -57,15 +58,18 @@ import XHeader from 'vux/components/x-header'
 import Toast from 'vux/components/toast'
 import XInput from 'vux/components/x-input'
 import XButton from 'vux/components/x-button'
+import Spinner from 'vux/components/spinner'
 export default {
   components: {
     XHeader,
     Toast,
     XInput,
-    XButton
+    XButton,
+    Spinner
   },
   ready () {
     var mServerHost = this.$mServerHost
+    var isSpinning = this.isSpinning
     var uploader = Qiniu.uploader({
               runtimes: 'html5,flash,html4',
               browse_button: 'pickfiles',
@@ -88,6 +92,7 @@ export default {
                   'FilesAdded': (up, files) => {
                   },
                   'BeforeUpload': (up, file) => {
+                    isSpinning = true
                   },
                   'UploadProgress': (up, file) => {
                   },
@@ -105,6 +110,7 @@ export default {
                     this.successType = 2
                     this.toggleSuccess()
                     this.$set('user.avatar', imgLink)
+                    isSpinning = false
                   },
                   'Error': function(up, err, errTip) {
                   }
@@ -127,15 +133,22 @@ export default {
   },
   methods: {
     refreshUser () {
+      this.isSpinning = true
       return this.$http.get(`${this.$mServerHost}/api/users/${this.$auth.uid}`).then(res => {
         this.$set('user', res.data)
         this.$set('newName',this.user.name)
         this.$set('newSign',this.user.sign)
         this.$set('newPassword', this.user.password)
+      }).then(() => {
+        this.isSpinning = false
       })
     },
     updateUser () {
-      return this.$http.put(`${this.$mServerHost}/api/users/${this.$auth.uid}`,this.user)
+      this.isSpinning = true
+      return this.$http.put(`${this.$mServerHost}/api/users/${this.$auth.uid}`,this.user).then((res) => {
+        this.isSpinning = false
+        return res
+      })
     },
     toggleEdit () {
       this.isEdit = !this.isEdit
@@ -201,18 +214,23 @@ export default {
       newPassword: '',
       newSign: '',
       warnType: 1,
-      successType: 1
+      successType: 1,
+      isSpinning: false
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.main {
-  .bottom {
-    bottom: 8%;
-    width: 100%;
-    position: absolute;
+.settings {
+  height: 100%;
+  .main {
+    height: ~'calc(100% - 110px)';
+    .bottom {
+      bottom: 60px;
+      width: 100%;
+      position: absolute;
+    }
   }
 }
 </style>

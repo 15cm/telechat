@@ -7,6 +7,7 @@
       正在和 {{ contact && contact.name ? `「${contact.name}」` : '...' }} 聊天
     </x-header>
     <div class="main">
+      <spinner class="spinner-center" v-if="isSpinning"></spinner>
       <div class="m-message" v-scroll-bottom="msgs">
         <ul>
           <li v-for="item in msgs">
@@ -19,12 +20,10 @@
         </ul>
       </div>
         <div class="m-text">
-          <textarea @keyup="inputing"  placeholder="Ctrl + Enter 发送" v-model="textToSend" ></textarea>
+          <textarea @keyup="inputing"  v-scroll-bottom="msgs" placeholder="Ctrl + Enter 发送" v-model="textToSend" ></textarea>
           <button v-if="$isMobile" @click="sendMsg()" class="send_button_box button_like">
             <div class="send_button">
               <icon name="paper-plane"></icon>
-          </div>
-          </button>
         </div>
     </div>
   </div>
@@ -37,13 +36,15 @@ import XTextarea from 'vux/components/x-textarea'
 import Icon from 'vue-awesome/dist/vue-awesome'
 import Toast from 'vux/components/toast'
 import Moment from 'moment'
+import Spinner from 'vux/components/spinner'
 export default {
   components: {
     CellList,
     XHeader,
     XTextarea,
     Icon,
-    Toast
+    Toast,
+    Spinner
   },
   route: {
     activate () {
@@ -54,12 +55,14 @@ export default {
       })
     },
     data () {
+      this.isSpinning = true
       return Promise.all([
         this.$http.get(`${this.$mServerHost}/api/users/${this.$auth.uid}`),
         this.$http.get(`${this.$mServerHost}/api/users/${this.$route.params.id}` ),
         this.$http.get(`${this.$mServerHost}/api/msgs/${this.$auth.uid}/${this.$route.params.id}`),
         this.$http.get(`${this.$mServerHost}/api/msgs/${this.$route.params.id}/${this.$auth.uid}`)
       ]).then(([meRes, contactRes, msgRes1, msgRes2]) => {
+        this.isSpinning = false
         return {
           me: meRes.data,
           contact: contactRes.data,
@@ -91,6 +94,7 @@ export default {
       var msg = {
         sid: this.$auth.uid,
         rid: this.$route.params.id,
+        time: new Date,
         content: this.textToSend
       }
       this.$socket.emit('sendMsg', msg)
@@ -114,7 +118,8 @@ export default {
       me: {},
       contact: {},
       textToSend: '',
-      showWarn: false
+      showWarn: false,
+      isSpinning: false
     }
   }
 }
@@ -200,7 +205,6 @@ export default {
         width: 100%;
         border: none;
         outline: none;
-        font-family: "Micrsofot Yahei";
         resize: none;
     }
 }
@@ -220,7 +224,7 @@ export default {
       left: 0;
   }
   .m-message {
-      height: ~'calc(100% - 160px)';
+      height: ~'calc(100% - 110px)';
   }
 }
 </style>

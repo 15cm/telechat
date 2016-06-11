@@ -4,6 +4,7 @@
       <h2>Telechat</h2>
       <p>登录</p>
     </div>
+    <spinner class="spinner-center" v-if="isSpinning"></spinner>
     <toast :show.sync="showSuccess" :time="1000" type="success">
       <p>登录成功</p>
     </toast>
@@ -25,25 +26,30 @@
 import XInput from 'vux/components/x-input'
 import XButton from 'vux/components/x-button'
 import Toast from 'vux/components/toast'
+import Spinner from 'vux/components/spinner'
 export default {
   components: {
     XInput,
     XButton,
-    Toast
+    Toast,
+    Spinner
   },
   methods: {
     submit () {
+      this.isSpinning = true
       this.$http.post(`${this.$mServerHost}/api/users/auth`, {
         email: this.email,
         password: this.password
       }).then(res => {
         this.$auth.login(res.data)
+        this.isSpinning = false
         this.showSuccess = !this.showSuccess
         this.$socket.emit('login', {uid: this.$auth.uid})
         this.$router.go({ name: 'index' })
       }, res => {
         this.showWarn = !this.showWarn
         console.log('用户邮箱和密码不匹配')
+        this.isSpinning = false
       })
     }
   },
@@ -52,7 +58,8 @@ export default {
       email: '',
       password: '',
       showSuccess: false,
-      showWarn: false
+      showWarn: false,
+      isSpinning: false
     }
   }
 }

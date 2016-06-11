@@ -5,23 +5,26 @@
       </a>
       Profile
     </x-header>
-    <div class="below_header">
-    <div class="cell_box ">
-      <div class="cell_hd">
-        <img class="avatar" :src="user.avatar">
-      </div>
-      <div class="cell_bd">
-        <h4 class="cell_title">{{ user.name }}</h4>
-        <p class="cell_title_desc">{{ user.email }}</p>
-      </div>
-    </div>
-    <div class="cell_box">
-        <div>
-          <h4 class="profile_cell_title">个性签名</h3>
+    <div class="main">
+      <div class="cell_box ">
+        <div class="cell_main">
+          <div class="cell_hd">
+            <img class="avatar" :src="user.avatar">
+          </div>
+          <div class="cell_bd">
+            <h4 class="cell_title">{{ user.name }}</h4>
+            <p class="cell_title_desc">{{ user.email }}</p>
+          </div>
         </div>
-        <div>
-          <p class="cell_content " :class="{ unset: !user.sign }">{{ user.sign ? user.sign : '签名什么的才懒得设呢' }}</p>
-        </div>
+      </div>
+      <div class="cell_box">
+          <div>
+            <h4 class="profile_cell_title">个性签名</h3>
+          </div>
+          <div>
+            <p class="cell_content " :class="{ unset: !user.sign }">{{ user.sign ? user.sign : '签名什么的才懒得设呢' }}</p>
+          </div>
+      </div>
     </div>
 </template>
 
@@ -60,4 +63,7 @@ export default {
 </script>
 
 <style scope>
+.main {
+  margin-top: 10px;
+}
 </style>

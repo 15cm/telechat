@@ -1,10 +1,10 @@
 <template>
-  <div class="chat-cell">
+  <div class="chat-cell cell_box">
     <slot name="edit"></slot>
-    <div class="cell_box button_like"
+    <div class="cell_main button_like"
       v-link="{ name: 'chatroom', params: { id: chat.uid }}">
       <div class="cell_hd">
-        <img class="avatar" :src="cUser.avatar">
+        <img width="64" height="64" class="avatar" :src="cUser.avatar">
       </div>
       <div class="cell_bd">
         <h4 class="cell_title">{{ cUser.name }}</h4>
