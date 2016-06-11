@@ -6,8 +6,8 @@
     <x-header :left-options="leftOptions">
       正在和 {{ contact && contact.name ? `「${contact.name}」` : '...' }} 聊天
     </x-header>
+    <!-- <spinner class="spinner-center" v-if="isSpinning"></spinner> -->
     <div class="main">
-      <spinner class="spinner-center" v-if="isSpinning"></spinner>
       <div class="m-message" v-scroll-bottom="msgs">
         <ul>
           <li v-for="item in msgs">
@@ -20,10 +20,7 @@
         </ul>
       </div>
         <div class="m-text">
-          <textarea @keyup="inputing"  v-scroll-bottom="msgs" placeholder="Ctrl + Enter 发送" v-model="textToSend" ></textarea>
-          <button v-if="$isMobile" @click="sendMsg()" class="send_button_box button_like">
-            <div class="send_button">
-              <icon name="paper-plane"></icon>
+          <textarea @keyup="inputing"  v-scroll-bottom="msgs" :placeholder="'Enter 发送\nCtrl + Enter 换行'" v-model="textToSend" ></textarea>
         </div>
     </div>
   </div>
@@ -59,14 +56,13 @@ export default {
       return Promise.all([
         this.$http.get(`${this.$mServerHost}/api/users/${this.$auth.uid}`),
         this.$http.get(`${this.$mServerHost}/api/users/${this.$route.params.id}` ),
-        this.$http.get(`${this.$mServerHost}/api/msgs/${this.$auth.uid}/${this.$route.params.id}`),
-        this.$http.get(`${this.$mServerHost}/api/msgs/${this.$route.params.id}/${this.$auth.uid}`)
-      ]).then(([meRes, contactRes, msgRes1, msgRes2]) => {
+        this.$http.get(`${this.$mServerHost}/api/msgs/or/${this.$auth.uid}/${this.$route.params.id}`),
+      ]).then(([meRes, contactRes, msgRes]) => {
         this.isSpinning = false
         return {
           me: meRes.data,
           contact: contactRes.data,
-          msgs: msgRes1.data.concat(msgRes2.data)
+          msgs: msgRes.data
         }
       })
     }
@@ -102,7 +98,8 @@ export default {
       this.textToSend = ''
     },
     inputing (e) {
-      if(e.ctrlKey && e.keyCode === 13 && this.textToSend.length){
+      if(!e.ctrlKey && e.keyCode === 13 && this.textToSend.length){
+        // console.log(this.textToSend);
         this.sendMsg()
       }
     }
@@ -210,7 +207,7 @@ export default {
 }
 
 .chat-window {
-  height: 99%;
+  height: 98%;
   .main {
       position: relative;
       overflow: hidden;
@@ -224,7 +221,7 @@ export default {
       left: 0;
   }
   .m-message {
-      height: ~'calc(100% - 110px)';
+      height: ~'calc(100% - 150px)';
   }
 }
 </style>

@@ -103,10 +103,10 @@ body {
 }
 
 .x-header {
-  top: 0%;
+  /*margin-top: 25px;*/
+  top: 0;
   height: 50px;
   width: 100%;
-  /*position: fixed;*/
 }
 
 .panel_box .panel_hd {

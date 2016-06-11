@@ -96,7 +96,7 @@ export default {
 .chats {
   height: 100%;
   .main {
-    height: ~'calc(100% - 110px)';
+    height: ~'calc(100% - 130px)';
     position: relative;
     overflow-y: scroll;
   }

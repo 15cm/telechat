@@ -18,3 +18,9 @@ export default {
   }
 }
 </script>
+
+<style scope>
+.cell_box_md {
+  border: none
+}
+</style>
